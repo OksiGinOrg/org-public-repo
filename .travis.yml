@@ -1,21 +1,25 @@
 os: linux
-
 language: java
 services:
   - docker
 cache: bundler
 dist: focal
-
 install: skip
-
+stages:
+  - name: test-branch
 jobs:
   include:
-    - name: testing
-      script: true
-
+    - stage: tests
+      name: testing
+      script: exit
 after_success:
-  - echo done
+  - echo passed
   - echo $TRAVIS_TEST_RESULT
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
+notifications:
+  webhooks:
+    urls:
+      - url: https://default8498120007044e2c82ffc288b51bc0.12.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/7e370a63c0d94951ac44fd7c3c7c1244/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=tZA6T_2CDIz-1bqbhswklQTzy9It_IVyh4ExQ7VCZ8M?token=NSX4v4go9PmXV4GjtYkH-A
+        msteams: true

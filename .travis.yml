@@ -11,7 +11,7 @@ jobs:
   include:
     - stage: tests
       name: testing
-      script: true
+      script: exit
 after_success:
   - echo passed
   - echo $TRAVIS_TEST_RESULT
